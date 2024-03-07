@@ -1,9 +1,17 @@
+import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { PersonalBest } from "../types/types";
+import WrPbEntry from "../components/wrpb-entry";
 
 export default function WrPb() {
+  const scrollBoxRef = useRef<HTMLDivElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [currentMousePos, setCurrentMousePos] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
   const apiUrl =
     "https://www.speedrun.com/api/v1/users/18vkrd5j/personal-bests?embed=game,category&top=3";
+
   const {
     isPending,
     error,
@@ -25,32 +33,48 @@ export default function WrPb() {
         groupedByGame[gameId].push(obj);
       }
 
-      return Object.values(groupedByGame);
+      return Object.values(groupedByGame).sort((a, b) => b.length - a.length);
     },
   });
+
+  function handleMouseDown(e: React.MouseEvent) {
+    if (!scrollBoxRef.current) return;
+    setCurrentMousePos(e.pageX - scrollBoxRef.current.offsetLeft);
+    setScrollLeft(scrollBoxRef.current.scrollLeft);
+    setIsScrolling(true);
+  }
+
+  function handleMouseUp() {
+    setIsScrolling(false);
+  }
+
+  function handleMouseMove(e: React.MouseEvent) {
+    if (!scrollBoxRef.current) return;
+    if (isScrolling) {
+      scrollBoxRef.current.scrollLeft =
+        scrollLeft - (e.clientX - currentMousePos);
+    }
+  }
+
+  function handleMouseLeave() {
+    setIsScrolling(false);
+  }
 
   if (isPending) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div>
-      <p className="text-2xl text-third text-center border-2 border-fourth">
-        Don't worry about the styling and everything here yet. Still just
-        figuring out the speedrun.com api
-      </p>
-      <div className="py-2" />
+    <div
+      className="flex w-full h-full overflow-x-auto px-10 py-40 gap-10"
+      ref={scrollBoxRef}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       {pbs.map((pb) => (
-        <div key={pb[0].run.game} className="border-2 border-fifth">
-          <p className="text-third">{pb[0].game.data.names.international}</p>
-          {pb
-            .sort((a, b) => a.place - b.place)
-            .map((run) => (
-              <p key={run.run.id}>
-                {run.place} - {run.category.data.name} - {run.run.times.primary}
-              </p>
-            ))}
-        </div>
+        <WrPbEntry key={pb[0].run.game} pb={pb} />
       ))}
     </div>
   );
