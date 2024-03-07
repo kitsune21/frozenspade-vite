@@ -33,7 +33,34 @@ export default function WrPb() {
         groupedByGame[gameId].push(obj);
       }
 
-      return Object.values(groupedByGame).sort((a, b) => b.length - a.length);
+      const objectArray = Object.values(groupedByGame).sort((a, b) =>
+        a[0].game.data["release-date"].localeCompare(
+          b[0].game.data["release-date"]
+        )
+      );
+
+      const returnArray = objectArray.map((gameGroup) => {
+        const uniqueCategories = gameGroup
+          .sort((a, b) => a.place - b.place)
+          .reduce((accumulator: PersonalBest[], currentValue) => {
+            // Check if there is already an object with the same category id in the accumulator
+            const existingCategory = accumulator.find(
+              (run) => run.category.data.id === currentValue.category.data.id
+            );
+
+            // If not found, add the current object to the accumulator
+            if (!existingCategory) {
+              accumulator.push(currentValue);
+            }
+
+            return accumulator;
+          }, []);
+        return uniqueCategories;
+      });
+
+      console.log(returnArray);
+
+      return returnArray;
     },
   });
 

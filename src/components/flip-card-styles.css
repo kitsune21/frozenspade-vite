@@ -1,6 +1,5 @@
 .flip-card {
   perspective: 1000px;
-  height: fit-content;
 }
 
 .flip-card-inner {
