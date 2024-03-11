@@ -13,9 +13,9 @@ export default function Menu() {
         <li className="text-lg transition-all duration-100 ease-in hover:border-b hover:border-fourth hover:text-fourth">
           <Link to="/youtube">YouTube Vods</Link>
         </li>
-        <li className="text-lg transition-all duration-100 ease-in hover:border-b hover:border-fourth hover:text-fourth">
+        {/* <li className="text-lg transition-all duration-100 ease-in hover:border-b hover:border-fourth hover:text-fourth">
           <Link to="/social">Social Media</Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
