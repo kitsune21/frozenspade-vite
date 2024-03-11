@@ -63,14 +63,16 @@ export default function WrPbEntry({ pb }: Props) {
           )
         }
         backContent={
-          <div className="bg-second py-8 px-2 border border-second rounded-xl select-none text-third text-center">
+          <div className="bg-second py-2 px-2 border border-second rounded-xl select-none text-third text-center">
             <p>{pb[0].game.data.names.international}</p>
             <p>Released: {formatDate(pb[0].game.data["release-date"])}</p>
-            <div className="border-b border-fourth mb-2" />
+            <div className="border-b border-fourth mb-4" />
             {pb
-              .sort((a, b) => a.place - b.place)
+              .sort((a, b) =>
+                a.category.data.name.localeCompare(b.category.data.name)
+              )
               .map((run) => (
-                <p
+                <div
                   key={run.run.id}
                   className={`flex justify-center items-center py-1 ${
                     run.place === 1 ? "text-fourth" : ""
@@ -82,10 +84,10 @@ export default function WrPbEntry({ pb }: Props) {
                     <img src={second} alt="2nd Place Trophy" className="w-5" />
                   ) : (
                     <img src={third} alt="3rd Place Trophy" className="w-5" />
-                  )}{" "}
-                  - {run.category.data.name} -{" "}
-                  {convertTime(run.run.times.primary)}
-                </p>
+                  )}
+                  <span className="px-2">{run.category.data.name}</span>
+                  <span>{convertTime(run.run.times.primary)}</span>
+                </div>
               ))}
           </div>
         }

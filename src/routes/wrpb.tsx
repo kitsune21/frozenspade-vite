@@ -58,7 +58,7 @@ export default function WrPb() {
         return uniqueCategories;
       });
 
-      console.log(returnArray);
+      //console.log(returnArray);
 
       return returnArray;
     },
