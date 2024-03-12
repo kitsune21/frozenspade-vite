@@ -93,7 +93,7 @@ export default function WrPb() {
 
   return (
     <div
-      className="flex w-full h-full overflow-x-auto px-10 py-40 gap-10"
+      className="flex w-full h-full overflow-x-auto sm:px-10 py-40 sm:gap-10 px-4 gap-4"
       ref={scrollBoxRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

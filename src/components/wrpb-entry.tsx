@@ -78,15 +78,30 @@ export default function WrPbEntry({ pb }: Props) {
                     run.place === 1 ? "text-fourth" : ""
                   }`}
                 >
-                  {run.place === 1 ? (
-                    <img src={first} alt="1st Place Trophy" className="w-5" />
-                  ) : run.place === 2 ? (
-                    <img src={second} alt="2nd Place Trophy" className="w-5" />
-                  ) : (
-                    <img src={third} alt="3rd Place Trophy" className="w-5" />
-                  )}
-                  <span className="px-2">{run.category.data.name}</span>
-                  <span>{convertTime(run.run.times.primary)}</span>
+                  <a
+                    className="flex justify-center items-center hover:zborder-fifth hover:border-b transition-all duration-150 ease-in-out"
+                    href={
+                      run.run.videos.links[0].uri
+                        ? run.run.videos.links[0].uri
+                        : ""
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {run.place === 1 ? (
+                      <img src={first} alt="1st Place Trophy" className="w-5" />
+                    ) : run.place === 2 ? (
+                      <img
+                        src={second}
+                        alt="2nd Place Trophy"
+                        className="w-5"
+                      />
+                    ) : (
+                      <img src={third} alt="3rd Place Trophy" className="w-5" />
+                    )}
+                    <span className="px-2">{run.category.data.name}</span>
+                    <span>{convertTime(run.run.times.primary)}</span>
+                  </a>
                 </div>
               ))}
           </div>

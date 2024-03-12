@@ -8,6 +8,7 @@ import YouTube from "./routes/youtube.tsx";
 import Social from "./routes/social.tsx";
 import ErrorPage from "./error-page.tsx";
 import "./index.css";
+import Secret from "./routes/secret.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/social",
         element: <Social />,
+      },
+      {
+        path: "/secret",
+        element: <Secret />,
       },
     ],
   },
