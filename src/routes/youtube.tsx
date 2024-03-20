@@ -6,7 +6,7 @@ export default function YouTube() {
       <iframe
         width="100%"
         height="100%"
-        src="https://www.youtube.com/embed/videoseries?si=_Hl5N4IJ5ktpxE6v;&amp;list=PLlN26eIiYFNc8pgFFLE60TOmGm4ZciNU7&amp;autoplay=1&amp;mute=1"
+        src="https://www.youtube.com/embed/videoseries?si=eWHcHSwz0bIbQWfe&amp;list=PLksLUltIYAdwbZxfw-2iVVQdn5lgIFNBg&amp;autoplay=1&amp;mute=1"
         title="Recent Videos by FrozenSpade"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
